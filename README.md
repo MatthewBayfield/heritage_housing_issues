@@ -139,6 +139,7 @@ sale price of houses in Ames, Iowa.
 **so that I can**, understand what works well, and how to improve the model.
 
 ### BR2 User story tasks
+* Perform exploratory data analysis for the purpose of data understanding as part of the CRISP-DM workflow.
 * Perform housing data cleaning/preparation.
 * Perform feature engineering/scaling.
 * Train model for predicting sale price from house attributes.
