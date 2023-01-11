@@ -91,14 +91,7 @@ Feature Group 4 (These features are not normally the most significant in determi
 **Expect a statistically significant weak positive correlation between these features and the sale price**.
 
 ### Validation Methods:
-In general all hypotheses will be validated using correlation tests, and other statistical tests to test whether the relevant features and target have statistically significant relationships. Plots will be used where appropriate to help visualise and also verify any relationships indicated by the tests. 
-
-Hypothesis 1:
-The truth of this hypothesis will be evaluated using the correlation type test results, by assessing whether all feature group members demonstrate the expected
-correlation, and or whether other features should be included in a group.
-
-Hypothesis 2,3 & 4:
-All features will be ranked with regard to their Predictive Power Score(PPS) and correlation coefficient with the target: sale price. This will reveal the validity of the hypotheses.
+In general all hypotheses will be validated using correlation tests and Predictive Power Scores(PPS) to test whether the relevant features and target have the expected relationships, and whether these relationships are statistically significant. Plots will be used where appropriate to help visualise and also verify any relationships indicated by the tests.
 
 ## The rationale to map the business requirements to the Data Visualisations and ML tasks
 
@@ -106,7 +99,6 @@ All features will be ranked with regard to their Predictive Power Score(PPS) and
 sale price of houses in Ames, Iowa.
 
 ### BR1 User stories
-* **As the client, I want** to be able to view information indicating the relationships between house attributes, **so that I can** better understand which attributes are related, thus simplifying the number of attributes that need to be considered independently.
 * **As the client, I want** to be able to see how the house attributes relate to the sale price, **so that I can** understand which attributes are most significant for determining the sale price.
 * **As the client, I want** to be able to view visual plots, **in order to** better perceive the relationships between house attributes including the sale price.
 * **As the client, I want** to be able to access all summary and in-depth annotated information and plots on a dashboard, **so that** it is easily retrievable.
@@ -114,13 +106,12 @@ sale price of houses in Ames, Iowa.
 
 ### BR1 User story tasks
 * Collect housing data from kaggle.
-* Clean data, if necessary, so that it is fit for analysis.
-* Perform initial exploratory data analysis on each feature and the target individually; in order to inform the choice of correlation and other statistical tests to perform. Also needed for data understanding in the ML tasks related to BR2.
-* Generate a set of correlation matrices with components for all feature-feature and feature-target pairs.
-* Generate a Predictive Power Score(PPS) matrix with components for all feature-feature and feature-target pairs.
+* Clean data, if necessary, so that it is fit for correlation and PPS analysis.
+* Generate a set of correlation matrices with components for all feature-target pairs.
+* Generate a Predictive Power Score(PPS) matrix with components for all feature-target pairs.
 * Produce a series of plots for all pairs to illustrate any relationships.
 * Create project summary dashboard page.
-* Create dashboard page displaying the results of the feature-feature and feature-target pairs analysis, with the use of plots.
+* Create dashboard page displaying the results of the feature-target pairs analysis, with the use of plots.
 
 **Business requirement 2**: predict sale price of houses in Ames, Iowa.
 
@@ -131,9 +122,11 @@ sale price of houses in Ames, Iowa.
 **so that I can**, understand what works well, and how to improve the model.
 
 ### BR2 User story tasks
-* Perform exploratory data analysis for the purpose of data understanding as part of the CRISP-DM workflow.
-* Perform housing data cleaning/preparation.
-* Perform feature engineering/scaling.
+* Select a subset of features that are most correlated to the sale price as determined in BR1.
+* Perform exploratory data analysis on these significant features for the purpose of data understanding as part of the CRISP-DM workflow. This will include
+feature-feature pair correlation tests, and normality tests for each feature's distribution.
+* Perform cleaning/preparation.
+* Perform feature engineering/scaling/selection.
 * Train model for predicting sale price from house attributes.
 * Optimise the model and perform hyperparameter tuning.
 * Evaluate the model performace.
