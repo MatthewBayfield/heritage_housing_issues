@@ -30,6 +30,9 @@
 |YearRemodAdd|Remodel date (same as construction date if no remodelling or additions)|1950 - 2010|
 |SalePrice|Sale Price|34900 - 755000|
 
+### Initial observations:
+A brief examination of the house attributes, suggests there may well be a large degree of inter-correlation amongst the attributes. What's more is that the attributes may be separable in to clusters or sets based on how strongly they correlate with each other. A set of closely correlated attributes may well be able to be represented by any single attribute within the set, with regard to the sign and magnitude of the correlation with attributes outside the cluster; the same may hold true for the predictive power in relation to an attribute. 
+
 ## Business Requirements
 The client has received an inheritance from a deceased great-grandfather located in Ames, Iowa. They aim to maximise the sale price for each of their inherited properties.
 
@@ -43,13 +46,10 @@ To summarise in precise terms:
 * 2 - The client is interested in predicting the house sale price for their four inherited houses, and more generally any other house in Ames, Iowa.
 
 
-## Hypothesis and how to validate?
-### Hypothesis 1:
-The features are significantly inter-correlated. More specifically some of the features are groupable into sets, based on a strong correlation amongst members, and where each set may also be less strongly correlated to other sets. A set of closely correlated features may well be replaceable by a single representative feature,
-with regard to its correlation with sale price. The respective groupings expected are as follows:
+## Hypotheses and their validation
 
-Feature Group 1 (Size group):
-Expect a strong positive correlation between features.
+### Hypotheses set 1
+Feature Group 1 (Size group - More space, more rooms tends to significantly increase sale price):
 * First Floor square feet (1stFlrSF)
 * Second Floor square feet (2ndFlrSF)
 * Bedrooms above grade (BedroomAbvGr)
@@ -57,46 +57,38 @@ Expect a strong positive correlation between features.
 * Above grade (ground) living area square feet (GrLivArea)
 * Type 1 finished square feet (BsmtFinSF1)
 * Unfinished square feet of basement area (BsmtUnfSF)
-
-
-Feature Group 2 (Quality group): 
-Expect a moderate to strong positive correlation between features.
-* YearBuilt: original construction date
-* YearRemodAdd: Remodel date
-* OverallCond: Rates the overall condition of the house
-* OverallQual: Rates the overall material and finish of the house
-* KitchenQual: Kitchen quality
-
-Feature Group 3 (Lot group): Expect a moderate positive correlation
 * LotArea: Lot size in square feet
 * LotFrontage: Linear feet of street connected to property
 
-Feature Group 4 (Garage group): Expect a moderate positive correlation
+**Expect a statistically significant strong positive correlation between these features and the sale price**.
+
+### Hypotheses set 2
+Feature Group 2 (Quality group - Higher quality normally means higher sale prices): 
+* OverallQual: Rates the overall material and finish of the house
+* KitchenQual: Kitchen quality
+
+**Expect a statistically significant moderate positive correlation between these features and the sale price**.
+
+### Hypotheses set 3
+Feature Group 3 (Age/condition group - newer or renovated houses, or houses in better condition tend to have higher sale prices): 
+* YearBuilt: original construction date
+* YearRemodAdd: Remodel date
+* OverallCond: Rates the overall condition of the house
+
+**Expect a statistically significant moderate positive correlation between these features and the sale price**.
+
+#### Hypotheses set 4
+Feature Group 4 (These features are not normally the most significant in determining sale price):
 * GarageFinish: Interior finish of the garage
 * GarageYrBlt: Year garage was built
+* GarageArea: Size of garage in square feet
+* EnclosedPorchSF: Enclosed porch area in square feet
+* OpenPorchSF: Open porch area in square feet
+* MasVnrArea: Masonry veneer area in square feet
+* WoodDeckSF: Wood deck area in square feet
+* BsmtExposure: Refers to walkout or garden level walls
 
-The remaining ungrouped features are expected to express a correlation with other features to a lesser extent.
-
-### Hypothesis 2:
-The size group features, are the most significant for predicting the sale price of a property.
-
-### Hypothesis 3:
-The quality group features, are the next most significant in predicting the sale price of a property.
-
-### Hypothesis 4:
-The remaining features are expected to correlate with the target sale price, ordered by strength, as displayed in the table below:
-
-|Feature(s)|Correlation strength|Correlation sign|
-|:----|:----|:----|
-|Group 3|moderate|positive|
-|BsmtFinType1|moderate|positive|
-|GarageArea|moderate|positive|
-|Group 4|moderate|positive|
-|EnclosedPorchSF|weak|positive|
-|BsmtExposure|weak|positive|
-|WoodDeckSF|weak|positive|
-|OpenPorchSF|weak|positive|
-|MasVnrArea|weak|positive|
+**Expect a statistically significant weak positive correlation between these features and the sale price**.
 
 ### Validation Methods:
 In general all hypotheses will be validated using correlation tests, and other statistical tests to test whether the relevant features and target have statistically significant relationships. Plots will be used where appropriate to help visualise and also verify any relationships indicated by the tests. 
@@ -130,7 +122,7 @@ sale price of houses in Ames, Iowa.
 * Create project summary dashboard page.
 * Create dashboard page displaying the results of the feature-feature and feature-target pairs analysis, with the use of plots.
 
-**Business requrement 2**: predict sale price of houses in Ames, Iowa.
+**Business requirement 2**: predict sale price of houses in Ames, Iowa.
 
 ### BR2 User stories
 * **As the client, I want** to be able view on a dashboard the predicted sale price of my four properties, **so that I can** maximise the achievable sale price for each of them.
