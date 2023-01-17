@@ -60,14 +60,14 @@ Feature Group 1 (Size group - More space, more rooms tends to significantly incr
 * LotArea: Lot size in square feet
 * LotFrontage: Linear feet of street connected to property
 
-**Expect a statistically significant strong positive correlation between these features and the sale price**.
+**Expect a statistically significant strong positive monotonic correlation between these features and the sale price**.
 
 ### Hypotheses set 2
 Feature Group 2 (Quality group - Higher quality normally means higher sale prices): 
 * OverallQual: Rates the overall material and finish of the house
 * KitchenQual: Kitchen quality
 
-**Expect a statistically significant moderate positive correlation between these features and the sale price**.
+**Expect a statistically significant moderate positive monotonic correlation between these features and the sale price**.
 
 ### Hypotheses set 3
 Feature Group 3 (Age/condition group - newer or renovated houses, or houses in better condition tend to have higher sale prices): 
@@ -75,7 +75,7 @@ Feature Group 3 (Age/condition group - newer or renovated houses, or houses in b
 * YearRemodAdd: Remodel date
 * OverallCond: Rates the overall condition of the house
 
-**Expect a statistically significant moderate positive correlation between these features and the sale price**.
+**Expect a statistically significant moderate positive monotonic correlation between these features and the sale price**.
 
 #### Hypotheses set 4
 Feature Group 4 (These features are not normally the most significant in determining sale price):
@@ -88,7 +88,7 @@ Feature Group 4 (These features are not normally the most significant in determi
 * WoodDeckSF: Wood deck area in square feet
 * BsmtExposure: Refers to walkout or garden level walls
 
-**Expect a statistically significant weak positive correlation between these features and the sale price**.
+**Expect a statistically significant weak positive monotonic correlation between these features and the sale price**.
 
 ### Validation Methods:
 In general all hypotheses will be validated using correlation tests and Predictive Power Scores(PPS) to test whether the relevant features and target have the expected relationships, and whether these relationships are statistically significant. Plots will be used where appropriate to help visualise and also verify any relationships indicated by the tests.
