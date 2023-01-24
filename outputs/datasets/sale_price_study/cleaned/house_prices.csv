@@ -1,4 +1,4 @@
-1stFlrSF,2ndFlrSF,BedroomAbvGr,BsmtExposure,BsmtFinSF1,BsmtFinType1,BsmtUnfSF,EnclosedPorch,GarageArea,GarageFinish,GarageYrBlt,GrLivArea,KitchenQual,LotArea,LotFrontage,MasVnrArea,OpenPorchSF,OverallCond,OverallQual,TotalBsmtSF,WoodDeckSF,YearBuilt,YearRemodAdd,SalePrice
+1stFlrSF,2ndFlrSF,BedroomAbvGr,BsmtExposure,BsmtFinSF1,BsmtFinType1,BsmtUnfSF,EnclosedPorchSF,GarageArea,GarageFinish,GarageYrBlt,GrLivArea,KitchenQual,LotArea,LotFrontage,MasVnrArea,OpenPorchSF,OverallCond,OverallQual,TotalBsmtSF,WoodDeckSF,YearBuilt,YearRemodAdd,SalePrice
 856.0,854.0,3.0,No,706.0,GLQ,150.0,0.0,548.0,RFn,2003.0,1710.0,Gd,8450.0,65.0,196.0,61.0,5.0,7.0,856.0,0.0,2003.0,2003.0,208500
 1262.0,0.0,3.0,Gd,978.0,ALQ,284.0,0.0,460.0,RFn,1976.0,1262.0,TA,9600.0,80.0,0.0,0.0,8.0,6.0,1262.0,180.0,1976.0,1976.0,181500
 920.0,866.0,3.0,Mn,486.0,GLQ,434.0,0.0,608.0,RFn,2001.0,1786.0,Gd,11250.0,68.0,162.0,42.0,5.0,7.0,920.0,0.0,2001.0,2002.0,223500
