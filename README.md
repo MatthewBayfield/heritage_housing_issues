@@ -31,7 +31,14 @@
 |SalePrice|Sale Price|34900 - 755000|
 
 ### Initial observations:
-A brief examination of the house attributes, suggests there may well be a large degree of inter-correlation amongst the attributes. What's more is that the attributes may be separable in to clusters or sets based on how strongly they correlate with each other. A set of closely correlated attributes may well be able to be represented by any single attribute within the set, with regard to the sign and magnitude of the correlation with attributes outside the cluster; the same may hold true for the predictive power in relation to an attribute. 
+A brief examination of the house attributes, suggests there may well be a large degree of inter-correlation amongst the attributes. What's more is that the attributes may be separable in to clusters or sets based on how strongly they correlate with each other. A set of closely correlated attributes may well be able to be represented by any single attribute within the set, with regard to the sign and magnitude of the correlation with attributes outside the cluster; the same may hold true for the predictive power in relation to an attribute.
+
+### Possible dataset limitations:  
+* The dataset for the housing prices lacks any features that represent the location of a house, which may influence the house sale price; for example the proximity to the nearest school or town centre. 
+* In addition the dataset lacks any features relating to the time of sale, which may again have a significant impact on the sale price of a house.
+
+In the absence of the above features, the dataset may not be able to sufficiently generate a ML model capable of adequately predicting the sale price of a house in Ames, Iowa;
+or at least the model performance may be higher if such features were included in the dataset.
 
 ## Business Requirements
 The client has received an inheritance from a deceased great-grandfather located in Ames, Iowa. They aim to maximise the sale price for each of their inherited properties.
