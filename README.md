@@ -148,7 +148,7 @@ feature-feature pair correlation tests, and normality tests for each feature's d
 * The attributes consist of categorical and numeric features, and the target (Sale Price) is a continuous variable.
 * Therefore a supervised, more specifically a regression, ML model is suitable.
 * The model will need to be trained using a subset of the house attributes (the features), and predict the Sale Price target (float) as an output.
-* A coefficient of determination ($R^2$) metric will be used to assess the model performance: how accurately given a subset of the features the sale price can be predicted.
+* A coefficient of determination $(R^2)$ metric will be used to assess the model performance: how accurately given a subset of the features the sale price can be predicted.
 * The success criterion for the model, as agreed with the client, is $R^2 \ge 0.75$.
 
 
