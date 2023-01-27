@@ -134,6 +134,8 @@ sale price of houses in Ames, Iowa.
 feature-feature pair correlation tests, and normality tests for each feature's distribution.
 * Perform cleaning/preparation.
 * Perform feature engineering/scaling/selection.
+* Create data cleaning and engineering pipeline.
+* Create modelling and evaluation pipeline.
 * Perform model search, and best model selection, for a model to predict sale price from house attributes.
 * Optimise the model by performing hyperparameter tuning.
 * Evaluate the model performace.
