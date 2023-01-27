@@ -134,8 +134,8 @@ sale price of houses in Ames, Iowa.
 feature-feature pair correlation tests, and normality tests for each feature's distribution.
 * Perform cleaning/preparation.
 * Perform feature engineering/scaling/selection.
-* Train model for predicting sale price from house attributes.
-* Optimise the model and perform hyperparameter tuning.
+* Perform model search, and best model selection, for a model to predict sale price from house attributes.
+* Optimise the model by performing hyperparameter tuning.
 * Evaluate the model performace.
 * Finalise the model pipeline once the success criteria are met.
 * Create a dashboard page displaying the attributes and sale prices of the client's four properties.
@@ -143,7 +143,13 @@ feature-feature pair correlation tests, and normality tests for each feature's d
 * Create a dashboard page displaying the final model performance. 
 
 ## ML Business Case
-* In the previous bullet, you potentially visualised an ML task to answer a business requirement. You should frame the business case using the method we covered in the course.
+* To recap, the client wants to be able to predict the sale price of their inherited houses, as well as for any other house in Ames, Iowa, using the attributes contained in a dataset located by the client on kaggle.
+* The dataset consists of 1460 housing records from Ames, Iowa, indicating house profile (Floor Area, Basement, Garage, Kitchen, Lot, Porch, Wood Deck, Year Built) and its respective sale price for houses built between 1872 and 2010.
+* The attributes consist of categorical and numeric features, and the target (Sale Price) is a continuous variable.
+* Therefore a supervised, more specifically a regression, ML model is suitable.
+* The model will need to be trained using a subset of the house attributes (the features), and predict the Sale Price target (float) as an output.
+* A coefficient of determination ($R^2$) metric will be used to assess the model performance: how accurately given a subset of the features the sale price can be predicted.
+* The success criterion for the model, as agreed with the client, is $R^2 \ge 0.75$.
 
 
 ## Dashboard Design
