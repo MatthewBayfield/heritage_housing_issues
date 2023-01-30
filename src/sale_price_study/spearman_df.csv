@@ -1,0 +1,24 @@
+X,Y,method,alternative,n,r,CI95%,p-unc,power
+SalePrice,1stFlrSF,spearman,greater,1460,0.5754078354212824,[0.55 1.  ],8.901231375545904e-130,1.0
+SalePrice,2ndFlrSF,spearman,greater,1460,0.2892241641497712,[0.25 1.  ],7.889663053540141e-30,1.0
+SalePrice,BedroomAbvGr,spearman,greater,1460,0.24076788176565395,[0.2 1. ],5.322560530307969e-21,0.9999999999999948
+SalePrice,BsmtExposure,spearman,greater,1460,0.34420664884485735,[0.31 1.  ],3.587931357039494e-42,1.0
+SalePrice,BsmtFinSF1,spearman,greater,1460,0.3018712035800953,[0.26 1.  ],1.9289545838396754e-32,1.0
+SalePrice,BsmtFinType1,spearman,greater,1460,0.33877525686212034,[0.3 1. ],7.783381644405435e-41,1.0
+SalePrice,BsmtUnfSF,spearman,greater,1460,0.18519662942076204,[0.14 1.  ],4.943430275189203e-13,0.999999981976492
+SalePrice,EnclosedPorchSF,spearman,greater,1460,-0.2171602242156894,[-0.26  1.  ],1.0,3.713435556480573e-24
+SalePrice,GarageArea,spearman,greater,1460,0.6493785338868229,[0.62 1.  ],6.60459046678652e-176,1.0
+SalePrice,GarageFinish,spearman,greater,1460,0.5621224412985705,[0.53 1.  ],1.0786513129593587e-122,1.0
+SalePrice,GarageYrBlt,spearman,greater,1460,0.6003779554456538,[0.57 1.  ],5.256448428790947e-144,1.0
+SalePrice,GrLivArea,spearman,greater,1460,0.7313095834659141,[0.71 1.  ],7.155077266545898e-245,1.0
+SalePrice,KitchenQual,spearman,greater,1460,0.6728485475386916,[0.65 1.  ],2.2002546986044886e-193,1.0
+SalePrice,LotArea,spearman,greater,1460,0.45646058339121154,[0.42 1.  ],2.4357904785849647e-76,1.0
+SalePrice,LotFrontage,spearman,greater,1460,0.40558727111650833,[0.37 1.  ],3.22068120943252e-59,1.0
+SalePrice,MasVnrArea,spearman,greater,1460,0.4236587372590978,[0.39 1.  ],5.741192281029423e-65,1.0
+SalePrice,OpenPorchSF,spearman,greater,1460,0.4775606622825264,[0.44 1.  ],2.4300490482205087e-84,1.0
+SalePrice,OverallCond,spearman,greater,1460,-0.12932494660061317,[-0.17  1.  ],0.999999644072387,1.9120537718275032e-11
+SalePrice,OverallQual,spearman,greater,1460,0.8098285862017292,[0.79 1.  ],0.0,1.0
+SalePrice,TotalBsmtSF,spearman,greater,1460,0.6027254448924096,[0.57 1.  ],2.078649901818517e-145,1.0
+SalePrice,WoodDeckSF,spearman,greater,1460,0.13563548500248684,[0.09 1.  ],9.844870920891397e-08,0.99981900589408
+SalePrice,YearBuilt,spearman,greater,1460,0.6526815462850586,[0.63 1.  ],2.8469204758435664e-178,1.0
+SalePrice,YearRemodAdd,spearman,greater,1460,0.5711589780582342,[0.54 1.  ],1.7786167219492315e-127,1.0
