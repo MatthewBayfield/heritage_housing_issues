@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import phik
+from phik.phik import phik_matrix
+from phik.report import plot_correlation_matrix
 
 def sale_price_study_body():
     st.write("## The relationship between a house's attributes and its sale price")
@@ -98,7 +101,14 @@ def sale_price_study_body():
         st.write(f'{feature_tuple[0]}:', 'weak')
     st.write('**Takeaway:**')
     st.write(f'As can be seen from the heatmap, according to the Spearman test, the **top five most significantly correlated attributes, in order, are\n'
-             f'OverallQual, GrLivArea, KitchenQual, YearBuilt, and GarageArea**.'
-    
-    )
+             f'OverallQual, GrLivArea, KitchenQual, YearBuilt, and GarageArea**.\n\n')
 
+    st.write('#### Phi k')
+    st.write(f'Below is a heatmap displaying the calculated spearman coefficients for each sale price - feature pairing:')
+
+    fig, ax = plt.subplots()
+    phik_matrix_df = pd.read_csv('src/sale_price_study/phik_matrix_df.csv')
+    matrix_plot = plot_correlation_matrix(phik_matrix_df.values, x_labels=phik_matrix_df.columns, y_labels=phik_matrix_df.index, figsize=(10,10), vmin=0, vmax=1,
+                                      y_label='Feature', title='SalePrice-Feature pair $\phi_k$ correlations')
+    
+    st.pyplot(data=matrix_plot)
