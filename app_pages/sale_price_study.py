@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import phik
 from phik.phik import phik_matrix
 from phik.report import plot_correlation_matrix
+from src.data_management import load_csv
 
 def sale_price_study_body():
     st.write("## The relationship between a house's attributes and its sale price")
@@ -15,7 +16,7 @@ def sale_price_study_body():
              f'correlations between attributes.\n\n'
 
              f'Some possible limitations of the dataset worth noting, are the lack of any attributes relating to its location,\n'
-             f'or the time of sale, both which likely impact the sale price.\n\n'
+             f'or the time of sale, both of which likely impact the sale price.\n\n'
 
              f'Irrespective of any dataset limitations, statistically significant correlations/relationships were discovered between various house attributes\n'
              f'and the sale price, which shall now be explored.\n')
@@ -49,66 +50,65 @@ def sale_price_study_body():
                     |YearRemodAdd|Remodel date (same as construction date if no remodelling or additions)|1950 - 2010|
                     |SalePrice|Sale Price|34900 - 755000|''')
                     
-
     st.write('### Correlation tests')
-    st.info(f'Two types of correlation tests that calculate correlation coefficients --- that range from 0 to 1, and indicate the strength of the correlation ---\n'
+    st.info(f'Two types of correlation tests that calculate correlation coefficients that range from 0 to 1, and indicate the strength of the correlation,\n'
             f'were performed.\n\n'
-            f'- The first test is Spearmans correlation test, that measures monotonic relationships, meaning (specifically positive monotonic) in this case, that\n'
-            f'if an attribute increases, the sale price never decreases.\n'
+            f'- The first test is Spearmans correlation test that measures monotonic relationships, meaning for the case of a positive monotonic relationship ---\n'
+            f'indicated by a positive coefficient --- that if an attribute increases, the sale price never decreases.\n'
 
             f'- The second test is the phi k correlation test; this measures whether there is any type of relationship, perhaps non-linear or otherwise.\n\n'
             f'Collectively these two tests likely will reveal most strong relationships between any attribute and the sale price.\n')
     
+    correlation_test = st.radio(label='Correlation test', options=['Spearman', 'phi k'])
 
-    st.write('#### Spearman')
+    if correlation_test == 'Spearman':
 
-    spearman_df = pd.read_csv('src/sale_price_study/spearman_df.csv')
-    fig, ax = plt.subplots()
-    spearman_heatmap = sns.heatmap(spearman_df.pivot(index='Y', columns=['X'], values=['r']).sort_values(by=('r', 'SalePrice'), ascending=False), annot=True,
-                                              vmax=1, vmin=-1, xticklabels=['SalePrice'], linecolor='black', linewidth=0.05, ax=ax)
-    spearman_heatmap.set(xlabel='', ylabel='Feature', title='SalePrice-Feature pair spearman correlations')
+        st.write('#### Spearman')
+        st.write(f'Below is a heatmap displaying the calculated spearman coefficients for each sale price - attribute pairing:')
+        with st.spinner('Loading, please wait'):
+            spearman_df = load_csv('src/sale_price_study/spearman_df.csv')
+            global fig
+            fig, axis = plt.subplots()    
+            spearman_heatmap = sns.heatmap(spearman_df.pivot(index='Y', columns=['X'], values=['r']).sort_values(by=('r', 'SalePrice'), ascending=False), annot=True,
+                                            vmax=1, vmin=-1, xticklabels=['SalePrice'], linecolor='black', linewidth=0.05, ax=axis)
+            spearman_heatmap.set(xlabel='', ylabel='House attribute', title='SalePrice-Attribute pair spearman correlations')
+        st.pyplot(fig)
+        st.write(f'All of the coefficients are statistically significant except for the attributes EnclosedPorchSF and OverallCond.\n'
+                f'This means there exists positive monotonic relationships for all the remaining attributes and the sale price. In the case of \n'
+                f'EnclosedPorchSF and OverallCond, there likely exists no correlation to sale price or a weak negative one.\n\n'
 
-    st.write(f'Below is a heatmap displaying the calculated spearman coefficients for each sale price - feature pairing:')
-    st.pyplot(fig)
-    st.write(f'All of the coefficients are statistically significant except for the attributes EnclosedPorchSF and OverallCondition.\n'
-             f'This means there exists positive monotonic relationships for all the remaining attributes and the sale price. In the case of \n'
-             f'EnclosedPorchSF and OverallCondition, there likely exists no correlation to sale price or a weak negative one.\n\n'
+                f'With regard to the strength of the relationship as indicated by the magnitude of the coefficient (the larger the stronger),\n'
+                f'each attribute can be described as being correlated to the sale price as follows:\n')
 
-             f'With regard to the strength of the relationship as indicated by the magnitude of the coefficient (the larger the stronger),\n'
-             f'each attribute can be described as being correlated to the sale price as follows:\n')
-    
-    st.write(f'|Feature|Strength|')
-    strong_features = []
-    moderate_features = []
-    weak_features = []
-    for feature_name, r_value in spearman_df[['Y', 'r']].set_index('Y').iterrows():
-        strength = ''
-        if abs(r_value.values[0]) > 0.65:
-            strength = 'strong'
-            strong_features.append((feature_name, r_value))
-        elif abs(r_value.values[0]) > 0.35:
-            strength = 'moderate'
-            moderate_features.append((feature_name, r_value))
-        elif abs(r_value.values[0]) > 0:
-            strength = 'weak'
-            weak_features.append((feature_name, r_value))
+        def strength_label(x):
+            strength = ''
+            if abs(x) > 0.65:
+                strength = 'strong'
+            elif abs(x) > 0.35:
+                strength = 'moderate'
+            elif abs(x) > 0:
+                strength = 'weak'
+            
+            return strength
 
-    for feature_tuple in strong_features:
-        st.write(f'{feature_tuple[0]}:', 'strong')
-    for feature_tuple in moderate_features:
-        st.write(f'{feature_tuple[0]}:', 'moderate')
-    for feature_tuple in weak_features:
-        st.write(f'{feature_tuple[0]}:', 'weak')
-    st.write('**Takeaway:**')
-    st.write(f'As can be seen from the heatmap, according to the Spearman test, the **top five most significantly correlated attributes, in order, are\n'
-             f'OverallQual, GrLivArea, KitchenQual, YearBuilt, and GarageArea**.\n\n')
+        @st.cache
+        def create_spearman_strength_df():
+            spearman_coeff_df = spearman_df[['Y', 'r']].set_index('Y').sort_values(by='r', ascending=False)
+            return spearman_coeff_df.applymap(strength_label).reset_index().rename(columns={'r': 'Correlation Strength', 'Y':'Attribute'})
 
-    st.write('#### Phi k')
-    st.write(f'Below is a heatmap displaying the calculated spearman coefficients for each sale price - feature pairing:')
+        st.table(create_spearman_strength_df())
 
-    fig, ax = plt.subplots()
-    phik_matrix_df = pd.read_csv('src/sale_price_study/phik_matrix_df.csv')
-    matrix_plot = plot_correlation_matrix(phik_matrix_df.values, x_labels=phik_matrix_df.columns, y_labels=phik_matrix_df.index, figsize=(10,10), vmin=0, vmax=1,
-                                      y_label='Feature', title='SalePrice-Feature pair $\phi_k$ correlations')
-    
-    st.pyplot(data=matrix_plot)
+        st.write('**Takeaway:**')
+        st.write(f'As can be seen from the heatmap, according to the Spearman test, the **top five most significantly correlated attributes**, in descending order, are\n'
+                f'OverallQual, GrLivArea, KitchenQual, YearBuilt, and GarageArea. **Increasing** any of these attributes **never decreases** the **sale price**.\n\n')
+
+    else:
+        st.write('#### Phi k')
+        st.write(f'Below is a heatmap displaying the calculated spearman coefficients for each sale price - feature pairing:')
+
+        fig, ax = plt.subplots()
+        phik_matrix_df = pd.read_csv('src/sale_price_study/phik_matrix_df.csv')
+        matrix_plot = plot_correlation_matrix(phik_matrix_df.values, x_labels=phik_matrix_df.columns, y_labels=phik_matrix_df.index, figsize=(10,10), vmin=0, vmax=1,
+                                        y_label='Feature', title='SalePrice-Feature pair $\phi_k$ correlations')
+        
+        st.pyplot(data=matrix_plot)
