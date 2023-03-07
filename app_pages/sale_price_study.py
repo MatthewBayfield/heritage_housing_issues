@@ -81,6 +81,14 @@ def sale_price_study_body():
                 f'each attribute can be described as being correlated to the sale price as follows:\n')
 
         def strength_label(x):
+            """
+            Maps a correlation value to a strength description. To be used as part of applymap.
+
+            Args:
+                x: element of a dataframe to which the function is applied elementwise through applymap.
+            
+            Returns a string equal to the strength description.
+            """
             strength = ''
             if abs(x) > 0.65:
                 strength = 'strong'
@@ -93,6 +101,9 @@ def sale_price_study_body():
 
         @st.cache
         def create_spearman_strength_df():
+            """
+            Returns the spearman correlation strength table that labels the magnitude of the attribute-sale price correlations.
+            """
             spearman_coeff_df = spearman_df[['Y', 'r']].set_index('Y').sort_values(by='r', ascending=False)
             return spearman_coeff_df.applymap(strength_label).reset_index().rename(columns={'r': 'Correlation Strength', 'Y':'Attribute'})
 
