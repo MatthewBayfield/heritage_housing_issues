@@ -78,7 +78,7 @@ def sale_price_study_body():
             f'- The second test is the phi k correlation test; this measures whether there is any type of relationship, perhaps non-linear or otherwise.\n\n'
             f'Collectively these two tests likely will reveal most strong relationships between any attribute and the sale price.\n')
     
-    correlation_test = st.radio(label='Correlation test', options=['Spearman', 'phi k'])
+    correlation_test = st.radio(label='Correlation test', options=['Spearman', 'phi k', 'summary'])
 
     if correlation_test == 'Spearman':
 
@@ -86,7 +86,6 @@ def sale_price_study_body():
         st.write(f'Below is a heatmap displaying the calculated spearman coefficients for each sale price - attribute pairing:')
         with st.spinner('Loading, please wait'):
             spearman_df = load_csv('src/sale_price_study/spearman_df.csv')
-            global fig
             fig, axis = plt.subplots()    
             spearman_heatmap = sns.heatmap(spearman_df.pivot(index='Y', columns=['X'], values=['r']).sort_values(by=('r', 'SalePrice'), ascending=False), annot=True,
                                             vmax=1, vmin=-1, xticklabels=['SalePrice'], linecolor='black', linewidth=0.05, ax=axis)
@@ -114,7 +113,7 @@ def sale_price_study_body():
                  f'OverallQual, GrLivArea, KitchenQual, YearBuilt, and GarageArea. **Increasing** any of these attributes **likely rarely decreases** the **sale price**.\n'
                  f'Equivalently it is likely that the larger their values, the higher the sale price.\n\n')
 
-    else:
+    elif correlation_test == 'phi k':
         st.write('#### Phi k')
         st.write(f'Below is a heatmap displaying the calculated phi k coefficients for each sale price-attribute pairing:')
         with st.spinner('Loading, please wait'):
@@ -146,6 +145,33 @@ def sale_price_study_body():
 
         st.write('**Takeaway:**')
         st.write(f'As can be seen from the heatmap, according to the phi k test, the **top five most significantly correlated attributes**, in descending order, are\n'
-                 f'GrLivArea, 2ndFlrSF, OverallQual, MasVnrArea, GarageArea. **Increasing** any of these attributes **likely rarely decreases** the **sale price**.\n'
-                 f'Equivalently it is likely that the larger their values, the higher the sale price.\n\n')
-    	
+                 f'GrLivArea, 2ndFlrSF, OverallQual, MasVnrArea, GarageArea. The nature of the relationships will need to be determined using the spearman correlation\n'
+                 f'coefficients, and the respective scatter plots for each atttribute-sale price pair.\n\n')
+    
+    else:
+        st.write('#### Correlation test summary')
+        st.info(f'Below is the combined correlation strength descriptions table for the house attributes:')
+
+        @st.cache
+        def create_combined_strength_df():
+            phik_matrix_df = load_csv('src/sale_price_study/phik_matrix_df.csv')
+            phik_matrix_df = phik_matrix_df.set_index(phik_matrix_df.columns[0]).drop(axis=0, labels='SalePrice')
+            spearman_df = load_csv('src/sale_price_study/spearman_df.csv')
+            spearman_coeff_df = spearman_df[['Y', 'r']].set_index('Y')
+            combined_strength_df = spearman_coeff_df.join(phik_matrix_df, how='inner').rename(columns={'r': 'Spearman strength',
+                                                                                                    'SalePrice': 'phi k strength'})
+            combined_strength_df.sort_values(by=['Spearman strength', 'phi k strength'], ascending=False, inplace=True)
+            combined_strength_df = combined_strength_df.applymap(strength_label).reset_index().rename(columns={'index': 'Attribute'})
+            return combined_strength_df
+
+        with st.spinner('Loading, please wait'):
+            st.table(create_combined_strength_df())
+        st.info(f'The degree of agreement between each correlation test can now be seen for each attribute, with respect to whether a strong relationship of some kind\n'
+                f'exists between each attribute and the sale price.\n\n')
+
+        st.write('**Takeaway:**')
+        st.write(f'Considering both tests, the **top five most significantly correlated attributes**, are\n'
+                 f'OverallQual, GrLivArea, KitchenQual, YearBuilt, GarageArea. Likely altering these attributes\n'
+                 f'has a somewhat predictable effect on the sale price.')
+
+                 
