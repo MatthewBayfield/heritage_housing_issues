@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 import phik
@@ -154,6 +155,9 @@ def sale_price_study_body():
 
         @st.cache
         def create_combined_strength_df():
+            """
+            Returns a dataframe containing columns for spearman and phi k correlation strength descriptions for each attribute, sorted by strength.
+            """
             phik_matrix_df = load_csv('src/sale_price_study/phik_matrix_df.csv')
             phik_matrix_df = phik_matrix_df.set_index(phik_matrix_df.columns[0]).drop(axis=0, labels='SalePrice')
             spearman_df = load_csv('src/sale_price_study/spearman_df.csv')
@@ -174,4 +178,65 @@ def sale_price_study_body():
                  f'OverallQual, GrLivArea, KitchenQual, YearBuilt, GarageArea. Likely altering these attributes\n'
                  f'has a somewhat predictable effect on the sale price.')
 
-                 
+    st.write('### Scatter Plots')
+    st.warning(f'It may be beneficial to first view the correlation test sections above, before viewing this section,\n'
+            f"as some references to those section's findings may feature.")
+    
+    def create_scatterplots():
+        """
+        Creates scatterplots or stipplots for each attribute-sale price pair.
+        """
+        scatterplot_data_df = load_csv('src/sale_price_study/scatterplot_data_df.csv')
+        house_prices_df = load_csv('outputs/datasets/sale_price_study/cleaned/house_prices.csv')
+
+        bsmt_fin_type1_cat = np.array(list(reversed(['GLQ', 'ALQ', 'BLQ', 'Rec', 'LwQ', 'Unf', 'None'])))
+        bsmt_exposure_cat = np.array(['None', 'No', 'Mn', 'Av', 'Gd'])
+        garage_finish_cat = np.array(['None', 'Unf', 'RFn', 'Fin'])
+        kitchen_quality_cat = np.array(['Po', 'Fa', 'TA', 'Gd', 'Ex'])
+
+        column_names = house_prices_df.columns.tolist()[0:-1]
+        partitioned_names = []
+        counter = 0
+        no_of_groups = int(len(column_names)/4)
+        while counter < no_of_groups:
+            partitioned_names.append(column_names[counter*4:counter*4 + 4])
+            counter +=1
+        partitioned_names.append(column_names[-3:])
+
+        for group in partitioned_names:
+            fig, axes = plt.subplots(ncols=len(group), nrows=1, figsize=(20,5), tight_layout=True)
+            for feature in group:
+                order = []
+                if feature == 'BsmtExposure':
+                    order = bsmt_exposure_cat
+                elif feature == 'BsmtFinType1':
+                    order = bsmt_fin_type1_cat
+                elif feature == 'GarageFinish':
+                    order = garage_finish_cat
+                elif feature == 'KitchenQual':
+                    order = kitchen_quality_cat
+
+                if len(order) == 0:
+                    sns.scatterplot(data=scatterplot_data_df[[feature, 'SalePrice']], x=feature, y='SalePrice', ax=axes[group.index(feature)])
+                else:
+                    sns.stripplot(data=scatterplot_data_df[[feature, 'SalePrice']], x=feature, y='SalePrice', ax=axes[group.index(feature)], order=order)
+            st.pyplot(fig)
+        
+
+    with st.spinner('Loading, please wait'):
+        create_scatterplots()
+
+    st.write(f'The scatter-type plots to a large extent suggest the same strength of monotonic relationship between each house attribute and the sale price,\n'
+             f'as that suggested by the respective spearman coefficients. In particular there are clear positive trends observable in accordance with\n'
+             f'the spearman correlation strength. For all plots the trends are disrupted by clustering/variance, and this degree of clustering is\n'
+             f'inversely proportional to the spearman correlation strength: that is to say attributes with a stronger spearman correlation,\n'
+             f'express in their plot, less deviation from any observable positive trend line.\n\n'
+             
+             f'With regard to attributes expressing strong phi k coefficients, but weak monotonic relationships, for example\n'
+             f'as is the case for 2ndFlrSF, it can be seen that there does appear to exist positive trends, but the presence of clusting about\n'
+             f'certain attribute values disrupts these trends significantly. For the attribute 2ndFlrSF this clustering is about the value zero.\n'
+             f'Thus the relationships for these attributes are more complex, but for certain value ranges the impact on the sale price may be predictable.\n\n')
+
+    st.write('**Takeaway:**')
+    st.write(f'The plots suggest there exist **noticeable positive trends** for the attributes 1stFlrSF, 2ndFlrSF, GarageArea, KitchenQual, OverallQual, GrLivArea,\n'
+            f'TotalBsmtSF, GarageFinish and perhaps shallow positive trends for YrBuilt and GrYrBlt. Thus the **higher these attributes on average the higher the sale price**.')
