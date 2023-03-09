@@ -100,6 +100,8 @@ Feature Group 4 (These features are not normally the most significant in determi
 ### Validation Methods:
 In general all hypotheses will be validated using correlation tests and Predictive Power Scores(PPS) to test whether the relevant features and target have the expected relationships, and whether these relationships are statistically significant. Plots will be used where appropriate to help visualise and also verify any relationships indicated by the tests.
 
+For more information, and to discover the outcomes of the hypotheses, please view the Project Hypothesis page of the dashboard app.
+
 ## The rationale to map the business requirements to the Data Visualisations and ML tasks
 
 **Business requirement 1**: discover how house attributes correlate with the 
