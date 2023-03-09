@@ -157,49 +157,76 @@ feature-feature pair correlation tests, and normality tests for each feature's d
 
 
 ## Dashboard Design
-* List all dashboard pages and their content, either blocks of information or widgets, like buttons, checkboxes, images, or any other items that your dashboard library supports.
-* Eventually, during the project development, you may revisit your dashboard plan to update a given feature (for example, at the beginning of the project you were confident you would use a given plot to display an insight but eventually you needed to use another plot type)
 
+### Navigation
+Each dashboard app page features a sidebar, that allows navigation between the various app pages via radio inputs.
 
+### Project summary page
 
-## Unfixed Bugs
-* You will need to mention unfixed bugs and why they were not fixed. This section should include shortcomings of the frameworks or technologies used. Although time can be a big variable to consider, paucity of time and difficulty understanding implementation is not valid reason to leave bugs unfixed.
+<img src='docs/screenshots/project_summary.png' width=50% height=50% alt='Screenshot of the project summary app page'>
+
+Provides an introduction/overview to the project. It features a background section that motivates the project and elaborates the client's background and goals.
+It also features a business requirements section, that specifies the clients two core business requirements. Finally it features a dataset overview section,
+that gives a brief description of the dataset's content, size and where it can be located. 
+
+### Sale price correlation study page
+
+<img src='docs/screenshots/sale_price_study_pt1.png' width=48% height=48% alt='Screenshot of the overview and house attribute sections of the sale price correlation study app page'><img src='docs/screenshots/sale_price_study_pt2.png' width=48% height=48% alt='Screenshot of the correlation tests section of the sale price correlation study app page'>
+
+<img src='docs/screenshots/sale_price_study_pt3.png' width=50% height=50% alt='Screenshot of the scatter plots section of the sale price correlation study app page'>
+
+This page reports the findings of the data analysis performed to discover how the house attributes are correlated to the sale price. It features an overview section that
+indicates that many of the attributes have significant correlations to the sale price and to each other. It also discusses the possible limitations of the dataset.
+
+In addition it features a house attributes section, that provides the ability to view a metadata table for the dataset through a checkbox input. The page next features a correlation tests section that through the use of radio inputs allows the reader to select to view heatmaps and tables detailing the Spearman and phi k correlation coefficients, as well as a correlation results summary page. At the end of each subsection there is a takeaway section, that highlights the key points covered.
+
+Finally there is a scatter plots section, that displays all the scatter-type plots for all attribute-sale price pairs. A discussion of the plots is given.
+
+### Project Hypothesis page
+
+<img src='docs/screenshots/project_hypothesis_pt1.png' width=48% height=48% alt='Screenshot of the project hypothesis app page'><img src='docs/screenshots/project_hypothesis_pt2.png' width=48% height=48% alt='Screenshot of the project hypothesis app page'>
+
+This page discusses the data analysis hypotheses made regarding the nature of the correlations between the house atrributes and the sale price. The page first features overview and hypothesis statement sections that describe the hypotheses made. Then there is a validation methods section that details how the formal and informal parts of each hypothesis were validated. Finally there is an outcomes section that details whether the hypotheses were accepted or true.
 
 ## Deployment
-### Heroku
+The dashboard app was deployed on [heroku](https://www.heroku.com/).
 
-* The App live link is: https://YOUR_APP_NAME.herokuapp.com/ 
-* The project was deployed to Heroku using the following steps.
+The live URL link is: [https://heritage-housing-issue.herokuapp.com/](https://heritage-housing-issue.herokuapp.com/)
 
-1. Log in to Heroku and create an App
-2. At the Deploy tab, select GitHub as the deployment method.
-3. Select your repository name and click Search. Once it is found, click Connect.
-4. Select the branch you want to deploy, then click Deploy Branch.
-5. The deployment process should happen smoothly if all deployment files are fully functional. Click the button Open App on the top of the page to access your App.
+It was deployed using the following procedure:
 
+1. Log in to your Heroku account, or create an account if required.
+2. At the top right of the Heroku dashboard click the "New" button, and from the menu that appears, click the 
+'Create new app' button.
+3. In the 'Create New App' section that follows, enter a unique name for the app, (indicated by a green tick) in the App name field, and also
+select a region, using the 'choose a region drop-down list.
+4. Once you have entered a unique app name and selected your region, click the 'create app'
+ button.
+5. After clicking 'create app' you are then taken to the deploy tab on your apps homepage. From here click on the
+'Settings' tab button to view the app settings.
+6. On the settings tab scroll down to the 'Config Vars' section, and click the 'Config Vars' button to reveal the configuration
+variables for the app.
+7. For the case of my app there were no config vars.
+
+8. Having entered the config vars, next scroll back up to the top of the page, and the click back on the 'Deploy' tab button.
+9. On this tab, scroll down to the 'Deployment method' section. In this section select 'Github' as
+the deployment method.
+10. Subsequently log in to your Github account as requested, and select to deploy the main branch of the repository.
+11. Finally enable automatic deploys, before clicking to deploy the branch.
 
 ## Main Data Analysis and Machine Learning Libraries
-* Here you should list the libraries you used in the project and provide example(s) of how you used these libraries.
+* pandas and numpy - involved in essentially all dataset manipulation, storage and display activities, including plots, and calculations.
+* feature engine - was used to transform the training and test data as part of feature engineering. For example the SmartCorrelatedSelection transformer was used.
+* pandas profiling - used in the sale price study and EDA notebooks to produce profiling reports.
+* pingouin, ppscore, phik - all used in the sale price study and the EDA notebooks to determine relationships between sale price and house attributes, including correlation coefficients.
+* seaborn, matplotlib - used to produce all plots including scatter plots and heatmaps.
+* sklearn - used in the tasks needed to create the model pipelines, including tasks such as hyperparameter tuning.
+* streamlit - used to produce the dashboard app.
 
 
 ## Credits 
 
-* In this section, you need to reference where you got your content, media and extra help from. It is common practice to use code from other repositories and tutorials, however, it is important to be very specific about these sources to avoid plagiarism. 
-* You can break the credits section up into Content and Media, depending on what you have included in your project. 
-
 ### Content 
+- kaggle house prices dataset.
 
-- The text for the Home page was taken from Wikipedia Article A
-- Instructions on how to implement form validation on the Sign-Up page was taken from [Specific YouTube Tutorial](https://www.youtube.com/)
-- The icons in the footer were taken from [Font Awesome](https://fontawesome.com/)
-
-### Media
-
-- The photos used on the home and sign-up page are from This Open Source site
-- The images used for the gallery page were taken from this other open-source site
-
-
-
-## Acknowledgements (optional)
-* In case you would like to thank the people that provided support through this project.
 
