@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import pingouin as pg
+import streamlit as st
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.impute import KNNImputer
 from sklearn.feature_selection import SelectKBest
@@ -8,6 +9,13 @@ from phik.phik import phik_matrix
 from phik.report import plot_correlation_matrix
 from phik.significance import significance_matrix
 from sklearn.preprocessing import MinMaxScaler, Normalizer
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OrdinalEncoder
+from feature_engine.selection import SmartCorrelatedSelection, DropFeatures
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
+from sklearn.model_selection import GridSearchCV
+
 
 class IndependentKNNImputer(BaseEstimator, TransformerMixin):
     """
@@ -45,7 +53,9 @@ class EqualFrequencyImputer(BaseEstimator, TransformerMixin):
         """
         No fitting is performed. The equal_frequency_imputer_categorical_features funnction is defined.
         """
-        def equal_frequency_imputer_categorical_features(categorical_df, transform_df, missing_data_df):
+        return self
+
+    def equal_frequency_imputer_categorical_features(self, categorical_df, transform_df, missing_data_df):
             """
             Imputes missing values for categorical features using an equal frequency value replacement method. Produces before and after count plots.
 
@@ -76,9 +86,6 @@ class EqualFrequencyImputer(BaseEstimator, TransformerMixin):
                     index_no += 1
                     number_of_nans = categorical_df[col].loc[categorical_df[col].isna() == True].size
 
-        self.equal_frequency_imputer = equal_frequency_imputer_categorical_features
-        return self
-
     def transform(self, x):
         """
         Transform the features by applying the equal frequency imputer function.
@@ -86,7 +93,7 @@ class EqualFrequencyImputer(BaseEstimator, TransformerMixin):
         self.categorical_df = x.select_dtypes(include='object')
         self.missing_data_df = x.loc[:, x.isna().any()]
 
-        self.equal_frequency_imputer(self.categorical_df, x, self.missing_data_df)
+        self.equal_frequency_imputer_categorical_features(self.categorical_df, x, self.missing_data_df)
 
         return x
         
@@ -176,15 +183,14 @@ class CompositeNormaliser(BaseEstimator, TransformerMixin):
         return self
 
     def transform(self, x):
-        feature_list = ['OverallQual', 'KitchenQual', 'GarageFinish']
+        feature_list = ['OverallQual', 'KitchenQual', 'GarageFinish', 'BsmtExposure', 'BsmtFinType1', 'OverallCond']
 
-        for feature in ['OverallQual', 'KitchenQual', 'GarageFinish']:
+        for feature in ['OverallQual', 'KitchenQual', 'GarageFinish', 'BsmtExposure', 'BsmtFinType1', 'OverallCond']:
             try:
                 self.numeric_df = x.drop(feature, axis=1)
-            except:
+            except Exception:
                 feature_list.pop(feature_list.index(feature))
                 continue
-        
         self.categorical_df = x[feature_list]
         # transforming numeric features
         normalizer = Normalizer()
