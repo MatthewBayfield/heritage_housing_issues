@@ -50,9 +50,6 @@ class EqualFrequencyImputer(BaseEstimator, TransformerMixin):
         pass
 
     def fit(self, x, y):
-        """
-        No fitting is performed. The equal_frequency_imputer_categorical_features funnction is defined.
-        """
         return self
 
     def equal_frequency_imputer_categorical_features(self, categorical_df, transform_df, missing_data_df):
@@ -207,3 +204,23 @@ class CompositeNormaliser(BaseEstimator, TransformerMixin):
     
     def set_output(self, transform):
         pass
+
+def scale_target(y_fit, y_transform):
+    """
+    Scales target for a subset, having been trained on another subset.
+
+    Args:
+        y_fit: target values used for fitting.
+        y_transform: target values transformed.
+
+    Returns a tuple of the scaled target series, as well as the inverse transform.
+    """
+    y_fit = pd.DataFrame(data=y_fit)
+    y_transform = pd.DataFrame(data=y_transform)
+    min_max_scaler = MinMaxScaler()
+    min_max_scaler.set_output(transform='pandas')
+    min_max_scaler.fit(y_fit)
+    y_transform = min_max_scaler.transform(y_transform)
+    inverse_transform = min_max_scaler.inverse_transform
+
+    return (y_transform.iloc[:, 0], inverse_transform)
