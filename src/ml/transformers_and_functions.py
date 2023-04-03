@@ -101,57 +101,54 @@ class CompositeSelectKBest(BaseEstimator, TransformerMixin):
 
     Filters out a set union of best features, from a dataset with a SalePrice target.
     """
+    def spearman_score_function(self, feature_array, target_array):
+        """
+        Calculates spearman correlation coefficients for x's features and y's target.
+
+        To be used as the score function in the sklearn.feature_selection.SelectKBest function.
+
+        Args:
+            feature_array = array-like, containing x data.
+            target_array = array-like, containing y data.
+
+        Returns tuple of the spearman r values series, and the spearman p values series for the dataset.
+        """
+        df = pd.DataFrame(data=feature_array, columns=self.x_column_names)
+        df['SalePrice'] = target_array
+        spearman_df = df.pairwise_corr(columns=['SalePrice'], method='spearman')
+        return (spearman_df['r'], spearman_df['p-unc'])
+
+
+    def phik_score_function(self, feature_array, target_array):
+        """
+        Calculates phi_k correlation coefficients for x's features and y's target.
+
+        To be used as the score function in the sklearn.feature_selection.SelectKBest function.
+
+        Args:
+            feature_array = array-like, containing x data.
+            target_array = array-like, containing y data
+
+        Returns tuple of the phi_k correlation values series, and the significance values series for the dataset.
+        """
+        df = pd.DataFrame(data=feature_array, columns=self.x_column_names)
+        df['SalePrice'] = target_array
+    
+        phik_matrix_df = phik_matrix(df)[['SalePrice']].drop('SalePrice', axis=0)
+        significance_matrix_df = significance_matrix(df)[['SalePrice']].drop('SalePrice', axis=0)
+        return (phik_matrix_df['SalePrice'], significance_matrix_df['SalePrice'])
+
+
     def fit(self, x, y):
         """
         Composed of two SelectKBest fittings with spearman and phi_k score functions
         """
         self.x_column_names = x.columns.to_list()
-
-        def spearman_score_function(feature_array, target_array):
-            """
-            Calculates spearman correlation coefficients for x's features and y's target.
-
-            To be used as the score function in the sklearn.feature_selection.SelectKBest function.
-
-            Args:
-                feature_array = array-like, containing x data.
-                target_array = array-like, containing y data.
-
-            Returns tuple of the spearman r values series, and the spearman p values series for the dataset.
-            """
-            df = pd.DataFrame(data=feature_array, columns=self.x_column_names)
-            df['SalePrice'] = target_array
-            spearman_df = df.pairwise_corr(columns=['SalePrice'], method='spearman')
-            return (spearman_df['r'], spearman_df['p-unc'])
-
-        self.spearman_score = spearman_score_function
-
-        def phik_score_function(feature_array, target_array):
-            """
-            Calculates phi_k correlation coefficients for x's features and y's target.
-
-            To be used as the score function in the sklearn.feature_selection.SelectKBest function.
-
-            Args:
-                feature_array = array-like, containing x data.
-                target_array = array-like, containing y data
-
-            Returns tuple of the phi_k correlation values series, and the significance values series for the dataset.
-            """
-            df = pd.DataFrame(data=feature_array, columns=self.x_column_names)
-            df['SalePrice'] = target_array
-        
-            phik_matrix_df = phik_matrix(df)[['SalePrice']].drop('SalePrice', axis=0)
-            significance_matrix_df = significance_matrix(df)[['SalePrice']].drop('SalePrice', axis=0)
-            return (phik_matrix_df['SalePrice'], significance_matrix_df['SalePrice'])
-
-        self.phik_score = phik_score_function
-
-        select_k_best_spear = SelectKBest(score_func=self.spearman_score)
+        select_k_best_spear = SelectKBest(score_func=self.spearman_score_function)
         select_k_best_spear.set_output(transform='pandas')
         self.spear_trans = select_k_best_spear.fit(x, y)
 
-        select_k_best_phi = SelectKBest(score_func=self.phik_score)
+        select_k_best_phi = SelectKBest(score_func=self.phik_score_function)
         select_k_best_phi.set_output(transform='pandas')
         self.phik_trans = select_k_best_phi.fit(x, y)
 
@@ -166,40 +163,6 @@ class CompositeSelectKBest(BaseEstimator, TransformerMixin):
 
         selected_features = list(set(spearman_transformed_df.columns.to_list() + phik_transformed_df.columns.to_list()))
         x = x[selected_features]
-        return x
-    
-    def set_output(self, transform):
-        pass
-
-
-class CompositeNormaliser(BaseEstimator, TransformerMixin):
-    """
-    Custom transformer that collectively applies a Normalizer transformer to numeric features and applies a MinMaxScalar to categorical features.
-    """
-    def fit(self, x, y):
-        return self
-
-    def transform(self, x):
-        feature_list = ['OverallQual', 'KitchenQual', 'GarageFinish', 'BsmtExposure', 'BsmtFinType1', 'OverallCond']
-
-        for feature in ['OverallQual', 'KitchenQual', 'GarageFinish', 'BsmtExposure', 'BsmtFinType1', 'OverallCond']:
-            try:
-                self.numeric_df = x.drop(feature, axis=1)
-            except Exception:
-                feature_list.pop(feature_list.index(feature))
-                continue
-        self.categorical_df = x[feature_list]
-        # transforming numeric features
-        normalizer = Normalizer()
-        normalizer.set_output(transform='pandas')
-        self.numeric_df = normalizer.fit_transform(self.numeric_df)
-        x[self.numeric_df.columns] = self.numeric_df
-        # transformng categorical features
-        min_max_scaler = MinMaxScaler()
-        min_max_scaler.set_output(transform='pandas')
-        self.categorical_df = min_max_scaler.fit_transform(self.categorical_df)
-        x[self.categorical_df.columns] = self.categorical_df
-
         return x
     
     def set_output(self, transform):
