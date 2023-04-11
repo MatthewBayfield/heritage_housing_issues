@@ -13,6 +13,7 @@ def ml_model_body():
     data_cleaning_and_feature_engineering_pipeline = load_pkl_file('src/ml/data_cleaning_and_feature_engineering_pipeline.pkl')
     data_cleaning_and_feature_engineering_pipeline_img = plt.imread('media/data_cleaning_engineering_pipeline.png')
     regressor_model_pipeline = load_pkl_file('src/ml/model_pipeline.pkl')
+    regressor_model_pipeline_img = plt.imread('media/model_pipeline.png')
     train_set_df = load_csv('src/ml/train_set_df.csv', index_col=0)
     y_train = train_set_df['SalePrice']
     test_set_df = load_csv('src/ml/test_set_df.csv', index_col=0)
@@ -83,4 +84,21 @@ def ml_model_body():
              f'step produced a model with higher complexity, but similar performance.')
     st.image(data_cleaning_and_feature_engineering_pipeline_img)
 
-    
+    st.write('#### Model pipeline')
+    st.write('##### Selecting the best regressor')
+    st.write(f'The learning algorithm was chosen by comparing the mean performance of a range of estimators with their default hyperparameters in a 5-fold cross-validation.\n'
+             f'A grid search hyperparameter tuning was then performed for the best performing estimator, and the mean performance in a 5-fold cross-validation used to select\n'
+             f'the best hyperparameter combination. Validation curves for each of the hyperparameters of the regressor, tuned with the current best values, were generated\n'
+             f'and used to inspire a further grid search.\n\n')
+    st.write('##### Obtaining prediction intervals')
+    st.write(f"A Mapie regressor was used to calculate prediction intervals, using the JackKnife+ method, for the sale price of the client's inherited properties.\n"
+             f'The JackKnife+ method was preferred as it provided a theorectical coverage guarantee for the prediction intervals. A minimum target coverage of 75%\n'
+             f'was desired, which guaranteed a minimum coverage of 50%. An estimate of the coverage was also calculated using the train and test datasets and\n'
+             f'the MAPIE package.')
+    st.write('##### Chosen model pipeline')
+    st.write(f'Below is the chosen model pipeline, that features a Random forest regressor.')
+    st.image(regressor_model_pipeline_img)
+    best_hyperparameter_combination = {'max_depth': 20, 'max_features': 0.66, 'max_leaf_nodes': 200, 'max_samples': 1.0, 'min_samples_leaf': 1,
+                                       'min_samples_split': 2, 'n_estimators': 200}
+    st.write('Best Hyperparameter combination:')
+    st.write(best_hyperparameter_combination)
