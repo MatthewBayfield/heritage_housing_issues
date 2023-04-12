@@ -121,6 +121,7 @@ sale price of houses in Ames, Iowa.
 * Produce a series of plots for all pairs to illustrate any relationships.
 * Create project summary dashboard page.
 * Create dashboard page displaying the results of the feature-target pairs analysis, with the use of plots.
+* Create a dashboard page showing the outcomes of the data analysis project hypotheses.
 
 **Business requirement 2**: predict sale price of houses in Ames, Iowa.
 
@@ -142,9 +143,10 @@ feature-feature pair correlation tests, and normality tests for each feature's d
 * Optimise the model by performing hyperparameter tuning.
 * Evaluate the model performance.
 * Finalise the model pipeline once the success criteria are met.
+* Calculate prediction intervals for the sale price of the client's inherited properties, using the best model pipelines. 
 * Create a dashboard page displaying the attributes and sale prices of the client's four properties.
 * Create a dashboard page/section allowing the client to enter a set of house attributes, and calculate the predicted sale price dynamically.
-* Create a dashboard page displaying the final model performance. 
+* Create a dashboard page displaying the final model performance and model pipelines. 
 
 ## ML Business Case
 * To recap, the client wants to be able to predict the sale price of their inherited houses, as well as for any other house in Ames, Iowa, using the attributes contained in a dataset located by the client on kaggle.
