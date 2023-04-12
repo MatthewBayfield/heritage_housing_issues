@@ -14,11 +14,6 @@ def ml_model_body():
     data_cleaning_and_feature_engineering_pipeline_img = plt.imread('media/data_cleaning_engineering_pipeline.png')
     regressor_model_pipeline = load_pkl_file('src/ml/model_pipeline.pkl')
     regressor_model_pipeline_img = plt.imread('media/model_pipeline.png')
-    train_set_df = load_csv('src/ml/train_set_df.csv', index_col=0)
-    y_train = train_set_df['SalePrice']
-    test_set_df = load_csv('src/ml/test_set_df.csv', index_col=0)
-    x_test = test_set_df.drop('SalePrice', axis=1)
-    y_test = test_set_df['SalePrice']
     feature_importances_df = load_csv('src/ml/feature_importances_df.csv', index_col=0)
     feature_importances_plot = plt.imread('media/best_regressor_feature_importance.png.png')
     model_performances_df = load_csv('src/ml/model_performances_df.csv', index_col=0, header=[0, 1])
