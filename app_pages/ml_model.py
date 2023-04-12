@@ -19,6 +19,10 @@ def ml_model_body():
     test_set_df = load_csv('src/ml/test_set_df.csv', index_col=0)
     x_test = test_set_df.drop('SalePrice', axis=1)
     y_test = test_set_df['SalePrice']
+    feature_importances_df = load_csv('src/ml/feature_importances_df.csv', index_col=0)
+    feature_importances_plot = plt.imread('media/best_regressor_feature_importance.png.png')
+    model_performances_df = load_csv('src/ml/model_performances_df.csv', index_col=0, header=[0, 1])
+    prediction_vs_actual_sale_price_plot = plt.imread('media/prediction_vs_actual_best_regressor_plot.png')
 
     st.write('## The ML model/pipeline employed to predict the sale price of a house in Ames, Iowa using its attributes')
 
@@ -102,3 +106,25 @@ def ml_model_body():
                                        'min_samples_split': 2, 'n_estimators': 200}
     st.write('Best Hyperparameter combination:')
     st.write(best_hyperparameter_combination)
+
+    st.write('### Model performance')
+    st.write('#### Metric score')
+    st.markdown('To be successful the regressor model needed to satisfy the scoring metric of $R^2\ge0.75$.')
+    st.success(f'The current best ML model, or more completely the combined ML pipelines, successfully meet the agreed model\n'
+               f'performance success criteria.\n')
+    st.markdown('The current model performance has $R^2=0.894$ on the test set, $R^2=0.978$ on the whole train set, and a mean value of $R^2=0.873$ across the 5 validation sets.')
+    st.write('Below is the model performance dataframe (note the units are powers of $):')
+    st.dataframe(model_performances_df)
+    st.write('#### Prediction vs actual sale price scatter plots')
+    st.write(f'Below are the prediction vs actual sale price scatter plots for both the train and test sets. It can be seen that the accuracy/variance of the predictions\n'
+             f'is fairly constant throughout the actual sale price value range.')
+    st.image(prediction_vs_actual_sale_price_plot)
+    st.write('#### Feature importances')
+    st.write('The feature importances of features used in the fitted best regressor model are as follows:')
+    st.image(feature_importances_plot)
+    st.dataframe(feature_importances_df)
+    st.write('It is worth noting that the most important features, happen to be the features that expressed some of the strongest correlations to the sale price.')
+
+    st.write('#### Prediction interval coverage and width')
+    st.write(f'The prediction intervals (alpha=0.125) generated using the best regressor estimator, and the JackKnife+ method have an estimated coverage of 96%, and an estimated\n'
+             f'mean interval width of $106954. Thus the intervals could probably be made smaller, and still maintain at least the desired 75% empirical coverage.')
