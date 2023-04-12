@@ -252,7 +252,19 @@ the deployment method.
 * MAPIE - used to calculate the prediction intervals using the JackKnife+ method.
 
 
-## Credits 
+## Credits
+
+### Code
+- In the modelling and evaluation notebook the HyperparameterOptimizationSearch class was taken from code-Institute-Solutions/churnometer (https://github.com/Code-Institute-Solutions/churnometer). The class facilitated conducting and displaying the results of a Grid Search.
+- Also in the modelling and evaluation notebook, the model_evaluation, model_evaluation_statistics, and model_evaluation_plots are modified forms of similar functions
+found in code-Institute-Solutions/churnometer (https://github.com/Code-Institute-Solutions/churnometer).
+
+### Resources
+- https://towardsdatascience.com/how-to-create-a-representative-test-set-f0aa56adaf35
+- https://ljvmiranda921.github.io/notebook/2022/08/02/splits/
+- https://towardsdatascience.com/how-to-compare-two-or-more-distributions-9b06ee4d30bf
+- https://www.analyticsvidhya.com/blog/2020/03/beginners-guide-random-forest-hyperparameter-tuning/
+- Barber RF, Candes EJ, Ramdas A, Tibshirani RJ. Predictive inference with the jackknife+.
 
 ### Content 
 - kaggle house prices dataset.
