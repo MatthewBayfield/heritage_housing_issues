@@ -187,11 +187,31 @@ Finally there is a scatter plots section, that displays all the scatter-type plo
 <img src='docs/screenshots/sale_price_predictor_pt2.png' width=48% height=70% alt='Screenshot of the sale price predictor app page'> <img src='docs/screenshots/sale_price_predictor_pt1.png' width=48% height=70% alt='Screenshot of the sale price predictor app page'>
 
 This page first indicates to the user that the model performance satisfies the client's success criteria. It also allows a user via a radio input to select to view the prediction intervals for the sale price of the clients inherited properties; or select to obtain a prediction for another property in Ames, Iowa. The prediction intervals are displayed in a table, and the attributes for the four properties are also visible. To obtain a prediction for another property, the user can use the number/selection inputs to enter values for the required house attributes, before clicking the 'get prediction' button; just above the number inputs, is a section explaining to the user, the range of properties where the model can validly be used to predict the sale price.
+
 ### Project Hypothesis page
 
 <img src='docs/screenshots/project_hypothesis_pt1.png' width=48% height=48% alt='Screenshot of the project hypothesis app page'><img src='docs/screenshots/project_hypothesis_pt2.png' width=48% height=48% alt='Screenshot of the project hypothesis app page'>
 
 This page discusses the data analysis hypotheses made regarding the nature of the correlations between the house attributes and the sale price. The page first features overview and hypothesis statement sections that describe the hypotheses made. Then there is a validation methods section that details how the formal and informal parts of each hypothesis were validated. Finally there is an outcomes section that details whether the hypotheses were accepted or true.
+
+### ML Model page
+
+<img src='docs/screenshots/ml_model_pt1.png' width=48% height=48% alt='Screenshot of the ML model app page'> <img src='docs/screenshots/ml_model_pt2.png' width=48% height=48% alt='Screenshot of the ML model app page'>
+
+<img src='docs/screenshots/ml_model_pt3.png' width=48% height=48% alt='Screenshot of the ML model app page'> <img src='docs/screenshots/ml_model_pt4.png' width=48% height=48% alt='Screenshot of the ML model app page'>
+
+<img src='docs/screenshots/ml_model_pt5.png' width=48% height=48% alt='Screenshot of the ML model app page'>
+
+The page is aimed at data practitioners, looking to discover information regarding the model, and more broadly the model pipelines, used to satisfy the client's business requirements. The page can be broken into three major sections. At the top of the page is an overview section, that restates the purpose of the ML model, as well as the type of model used. Beneath the overview section, is a radio input that allows the user to view either the model performance section, or the model pipelines section.
+
+The pipelines section consists of numerous subsections that convey the methodology behind the attempts to select/optimise both the data cleaning and engineering pipeline, as well as the model pipeline. For the cleaning and engineering pipeline subsection, the trialed feature scaling/selection steps are discussed, as well as the steps involved in the handling of missing data and outliers; a discussion of choosing an optimal dataset split for training and testing is also covered. For the model pipeline subsection, the
+process used for selecting the best estimator, as well as for hyperparameter tuning is detailed. In both pipeline subsections, the finalised pipelines are illustrated through
+the use of images. A final topic covered in the model pipeline subsection, is the method used to calculate the prediction intervals for the sale price of the inherited properties.
+
+The performance section contains subsections illustrating the model performance in terms of scoring metrics and actual vs prediction scatter plots. It also features
+a subsection demonstrating the feature importance of the final best regressor, as well as a subsection detailing the estimated coverage and mean width of the
+prediction intervals.
+
 
 ## Deployment
 The dashboard app was deployed on [heroku](https://www.heroku.com/).
