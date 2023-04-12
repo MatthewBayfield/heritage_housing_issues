@@ -70,7 +70,8 @@ def sale_price_predictor_body():
                 f'properties the model was trained on, can be predicted. With this in mind the values/value ranges for the house attributes and sale price that featured in\n'
                 f'the data used to train the model, are displayed in the dataframe below. (The units have been omitted, but can be found on the sale price correlation\n'
                 f'study app page)')
-        st.write(extract_train_set_variable_ranges())
+        with st.spinner('Loading, please wait...'):
+            st.write(extract_train_set_variable_ranges())
 
         st.write('#### Obtain a prediction')
 
