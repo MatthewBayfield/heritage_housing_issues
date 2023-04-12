@@ -243,12 +243,13 @@ the deployment method.
 
 ## Main Data Analysis and Machine Learning Libraries
 * pandas and numpy - involved in essentially all dataset manipulation, storage and display activities, including plots, and calculations.
-* feature engine - was used to transform the training and test data as part of feature engineering. For example the SmartCorrelatedSelection transformer was used.
+* feature engine - was used to transform the training and test data as part of feature engineering, mainly by using variance stabilising transformers or feature selection transformers, for example the SmartCorrelatedSelection transformer was used to remove redundant features.
 * pandas profiling - used in the sale price study and EDA notebooks to produce profiling reports.
-* pingouin, ppscore, phik - all used in the sale price study and the EDA notebooks to determine relationships between sale price and house attributes, including correlation coefficients.
+* pingouin, ppscore, phik, scipy - all used in the sale price study and the EDA notebooks to determine relationships between sale price and house attributes, including correlation coefficients. scipy and pingouin also used for the various statistical significance tests used.
 * seaborn, matplotlib - used to produce all plots including scatter plots and heatmaps.
-* sklearn - used in the tasks needed to create the model pipelines, including tasks such as hyperparameter tuning.
+* sklearn - used in the tasks needed to create the model/model pipelines, including tasks such as hyperparameter tuning. Also used for the dataset splitting.
 * streamlit - used to produce the dashboard app.
+* MAPIE - used to calculate the prediction intervals using the JackKnife+ method.
 
 
 ## Credits 
