@@ -71,7 +71,7 @@ def sale_price_study_body():
                         |WoodDeckSF|Wood deck area in square feet|0 - 736|
                         |YearBuilt|Original construction date|1872 - 2010|
                         |YearRemodAdd|Remodel date (same as construction date if no remodelling or additions)|1950 - 2010|
-                        |SalePrice|Sale Price|34900 - 755000|''')
+                        |SalePrice|Sale Price ($)|34900 - 755000|''')
                     
     st.write('### Correlation tests')
     st.info(f'Two types of correlation tests that calculate correlation coefficients that range from 0 to 1, and indicate the strength of the correlation,\n'
