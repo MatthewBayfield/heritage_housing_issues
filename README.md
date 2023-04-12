@@ -1,3 +1,7 @@
+# Heritage Housing Issues
+
+<img src='docs/screenshots/am_i_responsive_screenshot.png' width=100% height=50% alt='Screenshot showing the responsiveness of the dashboard app on multiple devices'>
+
 ## Dataset Content
 * The dataset is sourced from [Kaggle](https://www.kaggle.com/codeinstitute/housing-prices-data). 
 * It has almost 1.5 thousand rows and represents housing records from Ames, Iowa, indicating house profile (Floor Area, Basement, Garage, Kitchen, Lot, Porch, Wood Deck, Year Built) and its respective sale price for houses built between 1872 and 2010.
@@ -214,7 +218,6 @@ The performance section contains subsections illustrating the model performance 
 a subsection demonstrating the feature importance of the final best regressor, as well as a subsection detailing the estimated coverage and mean width of the
 prediction intervals.
 
-
 ## Deployment
 The dashboard app was deployed on [heroku](https://www.heroku.com/).
 
@@ -251,6 +254,10 @@ the deployment method.
 * streamlit - used to produce the dashboard app.
 * MAPIE - used to calculate the prediction intervals using the JackKnife+ method.
 
+## Technologies used
+- python
+- streamlit
+- Jupyter Notebooks
 
 ## Credits
 
