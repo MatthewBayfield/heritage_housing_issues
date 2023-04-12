@@ -9,7 +9,7 @@
 |2ndFlrSF|Second-floor square feet|0 - 2065|
 |BedroomAbvGr|Bedrooms above grade (does NOT include basement bedrooms)|0 - 8|
 |BsmtExposure|Refers to walkout or garden level walls|Gd: Good Exposure; Av: Average Exposure; Mn: Minimum Exposure; No: No Exposure; None: No Basement|
-|BsmtFinType1|Rating of basement finished area|GLQ: Good Living Quarters; ALQ: Average Living Quarters; BLQ: Below Average Living Quarters; Rec: Average Rec Room; LwQ: Low Quality; Unf: Unfinshed; None: No Basement|
+|BsmtFinType1|Rating of basement finished area|GLQ: Good Living Quarters; ALQ: Average Living Quarters; BLQ: Below Average Living Quarters; Rec: Average Rec Room; LwQ: Low Quality; Unf: Unfinished; None: No Basement|
 |BsmtFinSF1|Type 1 finished square feet|0 - 5644|
 |BsmtUnfSF|Unfinished square feet of basement area|0 - 2336|
 |TotalBsmtSF|Total square feet of basement area|0 - 6110|
@@ -28,7 +28,7 @@
 |WoodDeckSF|Wood deck area in square feet|0 - 736|
 |YearBuilt|Original construction date|1872 - 2010|
 |YearRemodAdd|Remodel date (same as construction date if no remodelling or additions)|1950 - 2010|
-|SalePrice|Sale Price|34900 - 755000|
+|SalePrice|Sale Price ($)|34900 - 755000|
 
 ### Initial observations:
 A brief examination of the house attributes, suggests there may well be a large degree of inter-correlation amongst the attributes. What's more is that the attributes may be separable in to clusters or sets based on how strongly they correlate with each other. A set of closely correlated attributes may well be able to be represented by any single attribute within the set, with regard to the sign and magnitude of the correlation with attributes outside the cluster; the same may hold true for the predictive power in relation to an attribute.
@@ -111,7 +111,7 @@ sale price of houses in Ames, Iowa.
 * **As the client, I want** to be able to see how the house attributes relate to the sale price, **so that I can** understand which attributes are most significant for determining the sale price.
 * **As the client, I want** to be able to view visual plots, **in order to** better perceive the relationships between house attributes including the sale price.
 * **As the client, I want** to be able to access all summary and in-depth annotated information and plots on a dashboard, **so that** it is easily retrievable.
-* **As a data practioner**, I want to be able to view on the dashboard the project hypotheses, as well as how they were validated, **so that I can** come to my own conclusions.
+* **As a data practitioner**, I want to be able to view on the dashboard the project hypotheses, as well as how they were validated, **so that I can** come to my own conclusions.
 
 ### BR1 User story tasks
 * Collect housing data from kaggle.
@@ -127,7 +127,7 @@ sale price of houses in Ames, Iowa.
 ### BR2 User stories
 * **As the client, I want** to be able view on a dashboard the predicted sale price of my four properties, **so that I can** maximise the achievable sale price for each of them.
 * **As the client, I want** to be able to enter on the dashboard the house attribute values for any property in Ames, Iowa and see the predicted price, **so that I can** see how changing attributes affects the sale price; it also would allow me to update the sale price if I modify one of my properties before selling.
-* **As a data practioner, I want** to be able to evaluate the model performance,
+* **As a data practitioner, I want** to be able to evaluate the model performance,
 **so that I can**, understand what works well, and how to improve the model.
 
 ### BR2 User story tasks
@@ -140,7 +140,7 @@ feature-feature pair correlation tests, and normality tests for each feature's d
 * Create modelling and evaluation pipeline.
 * Perform model search, and best model selection, for a model to predict sale price from house attributes.
 * Optimise the model by performing hyperparameter tuning.
-* Evaluate the model performace.
+* Evaluate the model performance.
 * Finalise the model pipeline once the success criteria are met.
 * Create a dashboard page displaying the attributes and sale prices of the client's four properties.
 * Create a dashboard page/section allowing the client to enter a set of house attributes, and calculate the predicted sale price dynamically.
@@ -182,11 +182,16 @@ In addition it features a house attributes section, that provides the ability to
 
 Finally there is a scatter plots section, that displays all the scatter-type plots for all attribute-sale price pairs. A discussion of the plots is given.
 
+### Sale price predictor page
+
+<img src='docs/screenshots/sale_price_predictor_pt2.png' width=48% height=70% alt='Screenshot of the sale price predictor app page'> <img src='docs/screenshots/sale_price_predictor_pt1.png' width=48% height=70% alt='Screenshot of the sale price predictor app page'>
+
+This page first indicates to the user that the model performance satisfies the client's success criteria. It also allows a user via a radio input to select to view the prediction intervals for the sale price of the clients inherited properties; or select to obtain a prediction for another property in Ames, Iowa. The prediction intervals are displayed in a table, and the attributes for the four properties are also visible. To obtain a prediction for another property, the user can use the number/selection inputs to enter values for the required house attributes, before clicking the 'get prediction' button; just above the number inputs, is a section explaining to the user, the range of properties where the model can validly be used to predict the sale price.
 ### Project Hypothesis page
 
 <img src='docs/screenshots/project_hypothesis_pt1.png' width=48% height=48% alt='Screenshot of the project hypothesis app page'><img src='docs/screenshots/project_hypothesis_pt2.png' width=48% height=48% alt='Screenshot of the project hypothesis app page'>
 
-This page discusses the data analysis hypotheses made regarding the nature of the correlations between the house atrributes and the sale price. The page first features overview and hypothesis statement sections that describe the hypotheses made. Then there is a validation methods section that details how the formal and informal parts of each hypothesis were validated. Finally there is an outcomes section that details whether the hypotheses were accepted or true.
+This page discusses the data analysis hypotheses made regarding the nature of the correlations between the house attributes and the sale price. The page first features overview and hypothesis statement sections that describe the hypotheses made. Then there is a validation methods section that details how the formal and informal parts of each hypothesis were validated. Finally there is an outcomes section that details whether the hypotheses were accepted or true.
 
 ## Deployment
 The dashboard app was deployed on [heroku](https://www.heroku.com/).
