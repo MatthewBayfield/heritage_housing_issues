@@ -2,6 +2,11 @@
 
 <img src='docs/screenshots/am_i_responsive_screenshot.png' width=100% height=50% alt='Screenshot showing the responsiveness of the dashboard app on multiple devices'>
 
+## Project Overview
+Heritage housing issues is a Machine learning and data analysis project focused on satisfying a client's business requirements, that are centered on being able to accurately
+appraise their inherited properties. A data analysis was performed into the relationship between a house's attributes and its sale price, for houses in Ames, Iowa. A ML regressor model was necessary to predict the sale price of the client's properties and of any other house in the same area. Access to the sale price predictor, as well as
+the results of the sale price analysis are presented through a streamlit dashboard app that is live at [https://heritage-housing-issue.herokuapp.com/](https://heritage-housing-issue.herokuapp.com/).
+
 ## Dataset Content
 * The dataset is sourced from [Kaggle](https://www.kaggle.com/codeinstitute/housing-prices-data). 
 * It has almost 1.5 thousand rows and represents housing records from Ames, Iowa, indicating house profile (Floor Area, Basement, Garage, Kitchen, Lot, Porch, Wood Deck, Year Built) and its respective sale price for houses built between 1872 and 2010.
