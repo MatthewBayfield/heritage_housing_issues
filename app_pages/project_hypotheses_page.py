@@ -64,8 +64,8 @@ def project_hypotheses_body():
              f'significance to determine whether the alternative hypotheses could be accepted.\n\n'
              
              f'The magnitude of the spearman coefficients, along with the magnitude and significance of phi k correlation coefficients were used to establish\n'
-             f'the strength of the relationship with sale price, as well as whether any other relatonship exists not monotonic in nature. Finally\n'
-             f'Predictive Power Scores(PPS) were calulated and plots used to establish the strength of any relationship, and to verify the results of the correlation tests.\n\n')
+             f'the strength of the relationship with sale price, as well as whether any other relationship exists not monotonic in nature. Finally\n'
+             f'Predictive Power Scores(PPS) were calculated and plots used to establish the strength of any relationship, and to verify the results of the correlation tests.\n\n')
 
     st.write('### Outcomes')
 
