@@ -166,6 +166,16 @@ feature-feature pair correlation tests, and normality tests for each feature's d
 * A coefficient of determination $(R^2)$ metric will be used to assess the model performance: how accurately given a subset of the features the sale price can be predicted.
 * The success criterion for the model, as agreed with the client, is $R^2 \ge 0.75$.
 
+## Finished model/model pipeline overview
+- A random forest regressor model was generated, that achieved a model performance score of $R^2=0.894$ on the test set, and a score of $R^2=0.976$ on the train set.
+- The model was selected and tuned using separate grid searches, with 5-fold cross-validation used to assess the mean model performance.
+- The JackKnife+ prediction intervals (Targeted coverage 75%) have an estimated coverage of 96%, and an estimated mean interval width of $106954.
+- The model train set comprised 75% of the dataset. The random split was chosen based on how representative the train and test sets were to the whole dataset, assessed using
+a sample of random splits and significance tests for distribution comparisons.
+- In the data cleaning and engineering pipeline, feature selection steps involving a custom sklearn SelectKBest transformer, and a feature engine SmartCorrelatedSelection transformer were employed. Both features and the target were scaled using either a sklearn MinMaxScaler transformer or a variance stabilising transformer. Missing data was imputed using a sklearn KNNImputer (numeric features) or a custom EqualFrequencyImputer (categorical features). Multivariate outlier instances were identified based on the criteria that a designated outlier instance has vector components that are outliers (identified using the IQR method) in at least 50% of the continuous features; the identified outliers were removed from the dataset.
+
+**For more information** see the ML Model dashboard app page, or even look at the various jupyter notebooks, in particular the modelling and evaluation notebook.
+
 
 ## Dashboard Design
 
